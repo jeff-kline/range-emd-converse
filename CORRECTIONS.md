@@ -17,9 +17,16 @@ their proofs are unchanged from the reviewed draft. The release adds precise
 QST and ICLR attribution, updates review status, and supplies reproducible
 checks and source records. Appendix A retains the two qualifications to
 Kline (2019); the additional ICLR qualifications remain in the audit record.
-Permanent archiving is pending Zenodo availability.
+At the preparation snapshot, permanent archiving was pending.
 
 September 9, 2026: the author enabled Zenodo's GitHub integration, replacing
 the candidate's manual-upload route. The existing release was republished
-without changing its tag or assets. Zenodo acknowledged prior receipt; DOI
-and provider-byte verification remain pending.
+without changing its tag or assets. Zenodo acknowledged prior receipt; verification was then pending.
+
+September 9, 2026: archive and DOI verification completed. Version DOI:
+[10.5281/zenodo.22675435](https://doi.org/10.5281/zenodo.22675435).
+The provider ZIP equals the pinned GitHub API ZIP byte for byte. Title, creator,
+version, publication date, open access and GPL-3.0-only license are verified.
+Living citation and admission records were updated; the immutable tag, paper
+PDF, claims and provider artifact were preserved. A source comment records
+the DOI without altering the typeset paper.

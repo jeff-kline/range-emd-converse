@@ -1,63 +1,59 @@
 # Release assessment
 
-Current verdict: **NOT YET ADMITTED**.
-Current state: **TAGGED**, version `0.1.0`, published September 9, 2026.
+Current verdict: ADMITTED.
+Current state: **ADMITTED**, version `0.1.0`, verified September 9, 2026.
+Version DOI: [10.5281/zenodo.22675435](https://doi.org/10.5281/zenodo.22675435).
+Concept DOI: [10.5281/zenodo.22675434](https://doi.org/10.5281/zenodo.22675434).
 Frozen commit: `3ce13e87c05d0028b8ecbc8607d8c3f9f834bb77`.
-Zenodo's GitHub integration is enabled. The unchanged v0.1.0 release was
-republished to deliver the missing event. Zenodo returned HTTP 409 with
-"The release has already been received." This confirms receipt, not successful
-archival publication. Public record lookup still returned HTTP 504; no DOI or
-provider byte verification is established.
 
 Standard: [A Public Standard for This Work, draft 0.4](https://jeff-kline.github.io/posts/research-program/index.html).
+Admission is a project release decision, not expert peer review, a proof of
+worldwide originality, or a correctness certificate.
 
-| Gate | Status | Disposition |
+| Gate | Status | Evidence |
 |---|---|---|
-| P1: prior work and credit | PASS | Bounded QST, Hirai, Bryant–Tupper and final ICLR-copy comparisons are recorded. Classical ingredients and known transfers are credited. Exact headline priority remains source-negative within that scope, not proved novel. |
-| A1: claims and artifacts | PASS | All 24 statement/proof environments are unchanged from the reviewed source. Separate release consistency review passed; all 13 PDF pages were visually checked and the PDF rebuilt identically. |
-| R1: reproduction and stewardship | PARTIAL | All four bounded checks pass. Reproduction code, evidence, license, correction policy and archive route are supplied. The immutable GitHub tag and release are public, and both downloaded assets match their local bytes. DOI archive verification remains pending. |
+| P1: prior work and credit | PASS | Bounded QST, Hirai, Bryant–Tupper and final ICLR comparisons are recorded. Classical ingredients and known transfers are credited. Exact headline priority remains source-negative within that scope; originality is unestablished. |
+| A1: claims and artifacts | PASS | All 24 statement/proof environments are unchanged from reviewed source. Separate release consistency review passed; all 13 PDF pages were visually checked and the PDF rebuilt identically. |
+| R1: reproduction and stewardship | PASS | Four bounded checks pass. Complete manifest, evidence, license, reproduction instructions, immutable tag, correction policy and citation metadata are supplied. DOI resolution, public record metadata and exact downloaded provider bytes were verified. |
 
-Passing P1 means the specified comparison was performed and its limits are
-visible; it does not assert worldwide originality. Source byte provenance,
-including the user-supplied ICLR copy, is in [SOURCES.md](SOURCES.md).
-AI review is process evidence, not external expert peer review or a correctness
-certificate.
+## Verified archive
 
-The author authorized release preparation and continuation of work independent
-of Zenodo. This includes the accepted Appendix A scope and GPL-3.0-only license.
-The clean release excludes private working history, retired research lanes,
-and third-party PDFs/code. The release agent owns local edits, checks, and
-authorized GitHub publication. The author operates the authenticated archive
-portal; the agent can subsequently verify its public record and downloaded
-bytes. Email remains prohibited.
+Zenodo [record 22675435](https://zenodo.org/records/22675435) is published and
+openly accessible. Its title and creator (Jeffery Kline) match the paper;
+version `v0.1.0` matches the tag and publication date is September 9, 2026.
+The record page identifies the license as `GPL-3.0-only` (its legacy API
+normalizes this to `gpl-3.0`). The description preserves the bounded claims.
 
-## Archive route
-
-The author enabled GitHub integration and authorized proceeding on September
-9, 2026, superseding the manual-upload plan in the immutable candidate.
-Do not create a separate manual deposit. The public tag and its commit remain
-unchanged. Republishing the existing GitHub release sent the publication event;
-its assets were preserved.
-
-The canonical GitHub API ZIP for v0.1.0 was downloaded twice before the trigger.
-The downloads match exactly and its internal manifest passes:
-338419 bytes, SHA-256
+The provider file `jeff-kline/range-emd-converse-v0.1.0.zip` is 338419 bytes.
+Its SHA-256 is
 `9ef2f5319f53d2893659531272040809767fef8ec903f3bd66b5234a4120bcd4`.
-This is now the provider byte-identity target. The attached manual ZIP below
-remains a valid secondary artifact but is not the expected integration ZIP.
+It matches the twice-downloaded canonical GitHub API ZIP for v0.1.0 exactly;
+its internal manifest also passes. The archived-state audit passed 11 checks
+with no warnings or failures. The DOI resolver led to this public record.
 
-Next verify the public Zenodo record, actual version DOI, metadata, and
-provider ZIP against that pinned GitHub archive. Receipt or a successful
-webhook alone does not establish ARCHIVED or ADMITTED status.
+The [GitHub release](https://github.com/jeff-kline/range-emd-converse/releases/tag/v0.1.0)
+also retains two secondary reading/distribution assets:
 
-## Published artifact receipt
-
-[Release v0.1.0](https://github.com/jeff-kline/range-emd-converse/releases/tag/v0.1.0)
-contains the reading PDF and exact manual-upload ZIP. Public downloads were
-compared byte for byte with the local artifacts.
-
-- ZIP: 337483 bytes; SHA-256 `6a0dd7915864a7b76458721a9d08eaed3cfcbcb25d3771072d738e56006eb832`.
 - PDF: 268384 bytes; SHA-256 `8a183a6f5c1b700425f0c89136b751a37021566e67e19bf7352951bd7ba4948c`.
+- Manual git-archive ZIP: 337483 bytes; SHA-256 `6a0dd7915864a7b76458721a9d08eaed3cfcbcb25d3771072d738e56006eb832`.
 
-The tagged assessment records the candidate snapshot. This living assessment
-records the later publication without changing the immutable tag or ZIP.
+The manual ZIP is not the integration byte-identity target and was not uploaded
+as a separate deposit.
+
+## Stewardship and retained limits
+
+The user authorized GitHub publication, then enabled Zenodo integration and
+authorized autonomous diagnosis, repair and final metadata publication. No
+public-site listing is in scope. Email remains prohibited. Third-party PDFs,
+third-party code, working git history and retired research lanes are excluded.
+
+Zenodo reports creation at 12:39:42 UTC on September 9, 2026, shortly after
+the release trigger. Subsequent text searches failed to reveal the record;
+webhook duplicate responses were not publication failures. The canonical
+numeric repository DOI badge resolved the record and enabled verification.
+The tag and provider archive remain unchanged, including their historical
+prepublication wording. Living records now state the verified status.
+
+AI review is process evidence, not external expert peer review. Priority
+remains limited to the comparisons recorded in [SOURCES.md](SOURCES.md).
+The correction and withdrawal policy remains in [CORRECTIONS.md](CORRECTIONS.md).

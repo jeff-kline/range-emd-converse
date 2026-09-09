@@ -5,6 +5,8 @@ Jeffery Kline · Version 0.1.0 · September 8, 2026
 [Read the paper](paper/main.pdf) · [TeX source](paper/main.tex) ·
 [Verification](REPRODUCIBILITY.md) · [Citation](CITATION.cff)
 
+Admitted under the project release standard. Version DOI: [10.5281/zenodo.22675435](https://doi.org/10.5281/zenodo.22675435).
+
 Several histograms on a line can be matched at once by charging each unit of
 matched mass the distance between its leftmost and rightmost bins. The minimum
 cost is the sum, over cuts between adjacent bins, of the largest cumulative
@@ -61,10 +63,12 @@ and the distinction between exact checks and floating-point LP solves.
 
 This is the version 0.1.0 preprint and reproducibility bundle. The public repository is [range-emd-converse](https://github.com/jeff-kline/range-emd-converse).
 [GitHub release v0.1.0](https://github.com/jeff-kline/range-emd-converse/releases/tag/v0.1.0)
-was published September 9, 2026. Permanent archiving and a DOI are pending: the author reports that Zenodo
-returns HTTP 504. The author has enabled GitHub integration, and Zenodo confirms receipt of
-the release. Public record and downloaded-archive verification remain pending;
-no DOI is yet verified. Do not create a duplicate manual deposit.
+was published September 9, 2026 and archived through Zenodo's GitHub integration.
+The [version archive](https://doi.org/10.5281/zenodo.22675435) was verified
+against the frozen GitHub ZIP byte for byte. The
+[concept DOI](https://doi.org/10.5281/zenodo.22675434) resolves the version family.
+The immutable archive retains its honest prepublication status text; these
+living records supply the verified DOI and admission status.
 See [ADMISSION.md](ADMISSION.md) for the current state.
 
 Copyright (C) 2026 Jeffery Kline. The original paper, TeX, prose, code, and

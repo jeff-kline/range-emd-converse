@@ -6,6 +6,8 @@ authors:
   - family-names: Kline
     given-names: Jeffery
 version: 0.1.0
+doi: "10.5281/zenodo.22675435"
+date-released: 2026-09-09
 repository-code: "https://github.com/jeff-kline/range-emd-converse"
 license: GPL-3.0-only
 keywords:
@@ -24,6 +26,7 @@ preferred-citation:
   authors:
     - family-names: Kline
       given-names: Jeffery
+  doi: "10.5281/zenodo.22675435"
   year: 2026
   version: 0.1.0
   url: "https://github.com/jeff-kline/range-emd-converse"
