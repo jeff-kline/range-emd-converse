@@ -1,0 +1,764 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsthm,mathtools,booktabs}
+\usepackage[margin=1in]{geometry}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{microtype}
+\hypersetup{pdftitle={Prefix-width rigidity and dual geometry of multi-marginal earth moving},pdfauthor={Jeffery Kline},pdfsubject={Research preprint, version 0.1.0}}
+\pdfinfoomitdate=1
+\pdftrailerid{}
+\pdfsuppressptexinfo=15
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}\newtheorem{definition}[theorem]{Definition}
+\newtheorem{remark}[theorem]{Remark}
+\newcommand{\R}{\mathbb R}
+\newcommand{\1}{\mathbf 1}
+\newcommand{\conv}{\operatorname{conv}}
+\newcommand{\aff}{\operatorname{aff}}
+\newcommand{\relint}{\operatorname{relint}}
+\newcommand{\Phiw}{\Phi_w}
+\newcommand{\width}{\operatorname{width}}
+\newcommand{\supp}{\operatorname{supp}}
+\title{Prefix-width rigidity and dual geometry\\of multi-marginal earth moving}
+\author{Jeffery Kline}
+\date{September 8, 2026\\\small Version 0.1.0}
+\begin{document}
+\maketitle
+\begin{abstract}
+The earth mover's problem asks how cheaply one distribution of mass can be
+rearranged into another. Here several histograms on a line are matched at
+once, and each unit of matched mass pays the distance between the leftmost and
+rightmost bins it occupies. Kline (2019) showed that the minimum cost depends
+only on the convex hull of the histograms and adds under Minkowski sums. Both
+facts, and explicit optimal primal and dual solutions, follow from one formula:
+at each of the $n-1$ cuts between adjacent bins, take the largest cumulative
+mass to the left of the cut minus the smallest, and add these gaps over all
+cuts. The main result is a converse. Consider any rule that assigns a cost to
+each tuple of bins, for any number of histograms, and is symmetric,
+nonnegative, zero for a single histogram, and Monge, the submodularity
+condition under which greedy matching is optimal. Its minimum cost is hull
+invariant and Minkowski additive for every common mass if and only if the rule
+is a nonnegative weighted count of the cuts lying between the leftmost and
+rightmost bins. Charging one per cut recovers the range cost exactly. Two
+further results describe the dual geometry. After quotienting out the
+lineality space, the shifts of the dual potentials that change nothing, the
+dual polyhedron for $d$ histograms on $n$ bins has exactly $[d(d-1)]^{n-1}$
+vertices, all integral, one for each choice of a lowest and a highest histogram
+at every cut. When those choices form a star with at least two leaves,
+realizing them needs, and is achieved in, affine dimension two.
+\end{abstract}
+
+\paragraph{Scope and priority.}
+The classification concerns the fixed-order, all-mass, all-arity transport
+class stated below. The source comparison recorded with this preprint did not
+identify either headline theorem in the inspected literature; it does not
+establish historical originality. The star-dimension construction is an
+explicit example, with no claim of originality.
+
+\section{Introduction}
+The earth mover's problem asks how cheaply one distribution of mass can be
+rearranged into another. This paper concerns a version with several histograms
+on a line. Each histogram places the same total mass in $n$ ordered bins. A
+coupling assigns mass to tuples containing one bin from each histogram, so that
+every histogram's bins receive their prescribed masses. A tuple costs the
+distance between its leftmost and rightmost bins, and the value of the problem
+is the least total cost of a coupling. Kline~\cite{kline} proved that this
+value is homogeneous, invariant under translating every histogram by the same
+vector, monotone under enlargement of the convex hull of the histograms, and
+additive under Minkowski sums.
+
+The value has a simple description in cumulative masses. At each of the $n-1$
+cuts between adjacent bins, record how much mass each histogram places to the
+left. Subtract the smallest of these amounts from the largest and add the
+results over all cuts. This sum is exactly the minimum cost
+(Theorem~\ref{thm:width}). In geometric terms, each summand is the width of the
+histograms' convex hull in a prefix direction; in cumulative coordinates, the
+value is the sum of the side lengths of the smallest box containing the
+histograms.
+
+The four properties follow at once. Enlarging the convex hull can only
+increase its widths. Translating every histogram by the same vector leaves the
+widths unchanged whenever the translated histograms remain admissible. For two
+histogram families $X$ and $Y$, the Minkowski sum $X+Y$ consists of every
+pairwise sum $x+y$, with repetition; its common mass is the sum of the two
+common masses, and each of its prefix widths is the sum of the corresponding
+widths of $X$ and $Y$, so the values add. This is the Minkowski additivity used
+throughout.
+
+The main result asks which other costs behave this way, and the answer is that,
+up to reweighting the cuts, none do. Fix the bin order and a cost for every
+number of histograms. Require each cost to be finite, nonnegative, unchanged by
+permuting the histograms, and Monge, the submodularity condition under which
+greedy matching is optimal, with zero cost for a single histogram. Suppose the
+value depends only on the convex hull of the histograms and is Minkowski
+additive, for every common mass. Theorem~\ref{thm:rigidity} shows that the cost
+must then be a nonnegative weighted count of the cuts lying between the
+leftmost and rightmost occupied bins. Only $n-1$ weights remain, one per cut,
+and each is the two-histogram cost between the adjacent bins at that cut.
+Charging one per cut fixes the whole cost family and recovers range-cost EMD.
+Section~4 states the assumptions precisely and proves both directions.
+
+This characterization sits inside a broad geometric theory of additive
+functionals. Nonnegative sums and averages of directional widths, mean width
+among them, are all Minkowski additive. In cumulative coordinates, range-cost
+EMD is the standard $\ell_1$ diversity, and Bryant and
+Tupper~\cite[Section 2.1 and Theorem 5]{bt} describe the linear semidiversities
+as support integrals against positive measures with zero first moment. What
+the transport hypotheses add is rigidity: they force the particular prefix
+directions and leave only their weights free. The uniqueness claim is confined
+to this transport class; the mean-width example in Section~4 marks the
+boundary.
+
+The width formula also yields explicit optimal solutions of the transport
+problem and of its dual. We use the classical optimality of common-quantile
+couplings for Monge costs and include an uncrossing proof. Queyranne, Spieksma
+and Tardella~\cite[Theorem 3.1(2)--(3)]{qst} give a general greedy primal/dual framework. Dual
+solutions serve as gradients in the machine-learning applications of Mehta,
+Kline, Lokhande, Fung and Singh~\cite[Theorem 4.3 and Appendix 7.1]{mehta}; the prefix formula makes them
+explicit and separates derivatives at strict extrema from subgradients at ties.
+
+Theorem~\ref{thm:census} then describes every vertex of the dual for $d$
+histograms. A polyhedron's \emph{lineality space} consists of the directions in
+which one can move arbitrarily far both forward and backward without leaving
+it. In our dual, adding a constant $\alpha_j$ to every entry of the potential
+$y_j$ changes neither feasibility nor the objective when $\sum_j\alpha_j=0$,
+because each constraint uses one entry from every potential and the histograms
+have equal mass. These shifts are the lineality space, and working
+\emph{modulo lineality} means identifying solutions that differ only by such a
+shift. Before this quotient the dual has no vertices at all when $d\ge2$, since
+every feasible point lies on a feasible line. After it, the vertices are
+counted exactly: one for each choice of a lowest and a highest histogram at
+every cut. Section~3 gives the quotient and the count.
+
+We also ask how many dimensions are needed to realize prescribed pairs of
+histograms as the unique lowest and highest at successive cuts. This is a
+strict-antipodality problem in convex geometry. For a star of prescribed pairs
+with at least two leaves, two dimensions suffice and one is impossible.
+Section~\ref{sec:branch} turns to a different problem, a star as the underlying
+transport space rather than a line; its three-marginal formula follows from
+Makur and Singh~\cite{makur} and shows why branching can prevent all cut bounds
+from being attained at once. The appendix records qualifications to the 2019
+algorithm and to one perturbation argument.
+
+\section{Histograms, cuts and exact certificates}
+Fix $n\ge2$ bins indexed by $0,\ldots,n-1$. A histogram is a vector in
+$\R_+^n$, where $\R_+$ includes zero. Let $X=(x_1,\ldots,x_d)$ be a nonempty
+finite multiset of histograms with common mass $m$. A coupling is an array
+$f\colon\{0,\ldots,n-1\}^d\to\R_+$ with marginals $x_j$. For a cost $c_d$,
+write
+\[
+ \Phi_c(X)=\min_f\sum_I c_d(I)f(I).
+\]
+The feasible set is nonempty and compact. For the range cost
+$c_d(I)=\max_j I_j-\min_j I_j$, write $\Phi(X)$. For $d=1$ this cost is zero.
+
+Put $H_m=\{x:\1^Tx=m\}$ and define the prefix map
+\[
+ F_x(k)=\sum_{i=0}^k x(i),\qquad
+ T(x)=(F_x(0),\ldots,F_x(n-2)).
+\]
+Restricted to $H_m$, $T$ is an affine bijection onto $\R^{n-1}$: successive
+differences recover $x$, including $x(n-1)=m-F_x(n-2)$. Let
+$u_k=(\underbrace{1,\ldots,1}_{k+1},0,\ldots,0)$. For nonempty compact $K$,
+$h_K(u)=\max_{x\in K}\langle u,x\rangle$ and
+$\width(K,u)=h_K(u)+h_K(-u)$.
+
+\begin{theorem}[Prefix widths]\label{thm:width}
+For every admissible $X$,
+\begin{equation}\label{eq:width}
+ \Phi(X)=\sum_{k=0}^{n-2}\left(\max_j F_{x_j}(k)-\min_j F_{x_j}(k)\right)
+        =\sum_{k=0}^{n-2}\width(\conv X,u_k).
+\end{equation}
+The common-quantile coupling attains the minimum, including at zero bins and ties.
+\end{theorem}
+\begin{proof}
+For every tuple $I$,
+\[
+ \max I-\min I=\sum_{k=0}^{n-2}\1\{\min I\le k<\max I\}.
+\]
+In a coupling of mass $m$, let $A_{j,k}=\{I_j\le k\}$; this event has measure
+$F_{x_j}(k)$. The measure of the event in the $k$th summand is
+$\mu(\bigcup_j A_{j,k})-\mu(\bigcap_j A_{j,k})$, at least
+$\max_j F_{x_j}(k)-\min_j F_{x_j}(k)$.
+For $t\in[0,m]$, let $I_j(t)$ be the quantile bin of $x_j$. Then, up to null
+endpoints, $A_{j,k}=[0,F_{x_j}(k)]$. All the cut bounds are attained
+simultaneously. Integration proves the result. If $m=0$, all terms vanish.
+\end{proof}
+
+\begin{proposition}[An explicit dual]\label{prop:dual}
+For each cut $k$, choose $a_k$ minimizing and $b_k$ maximizing $F_{x_j}(k)$.
+Set
+\[
+ q_k=e_{a_k}-e_{b_k},\qquad y_j(i)=\sum_{k<i}q_k(j).
+\]
+Here $q_k=0$ is permitted when the extrema tie. Then $y$ is dual feasible and
+$\sum_j\langle x_j,y_j\rangle=\Phi(X)$. Its entries are integers bounded in
+absolute value by $n-1$, every row sums to zero, and at most $2(n-1)$ columns
+are nonzero.
+\end{proposition}
+\begin{proof}
+For every tuple $I$,
+\[
+ \sum_j y_j(I_j)=\sum_k\sum_{j:I_j>k}q_k(j)\le \max I-\min I.
+\]
+Cuts outside $[\min I,\max I)$ contribute zero; each remaining cut contributes
+at most one. Summation by parts gives
+\[
+ \sum_j\langle x_j,y_j\rangle
+ =\sum_k\sum_j q_k(j)(m-F_{x_j}(k))
+ =\sum_k\bigl(F_{x_{b_k}}(k)-F_{x_{a_k}}(k)\bigr).
+\]
+The remaining assertions follow from the root increments.
+\end{proof}
+
+The quantile coupling has at most $d(n-1)+1$ positive cells. The value and dual
+can be obtained in $O(nd)$ arithmetic operations by accumulating prefixes and
+extrema. Producing the primal coupling additionally requires merging the
+breakpoints and reporting its cells; the value-only complexity is not a claim
+about that separate output task.
+
+\begin{corollary}[Chambers and sensitivity]\label{cor:gradient}
+On the relative interior of a fixed-mass histogram domain, if each prefix has
+unique minimizing and maximizing labels, the functional is locally linear and
+the dual in Proposition~\ref{prop:dual} represents its derivative. At ties,
+any certificate from that proposition is a subgradient. A chosen certificate
+uses at most $2(n-1)$ marginal columns.
+\end{corollary}
+\begin{proof}
+Strict comparisons persist in a neighborhood, where the width formula uses
+the same linear summands. At ties, dual feasibility for every admissible $X'$ and
+equality at $X$ give
+$\Phi(X')\ge\langle X',y\rangle=\Phi(X)+\langle X'-X,y\rangle$.
+The column bound was already proved. Derivatives are understood on the
+fixed-mass tangent space, so columnwise additive constants are immaterial.
+\end{proof}
+
+This is an explicit certificate interpretation of the gradient use in
+\cite[Theorem 4.3 and Appendix 7.1]{mehta}, not a claim that differentiating transport optima is new. It also
+makes the tie qualification visible: a subgradient need not be an ordinary
+derivative. A point can lie outside the current convex hull while making no
+incremental contribution, as the interval formula below shows.
+
+\subsection{Geometric consequences and limitations}
+\begin{corollary}\label{cor:geometry}
+The range functional depends only on $\conv X$, is positively homogeneous,
+is invariant under admissible common translations, and is monotone under
+convex-hull inclusion. For multiset Minkowski addition,
+\[
+ \Phi(X+Y)=\Phi(X)+\Phi(Y),
+\]
+where $X+Y=(x_j+y_l)_{j,l}$ retains multiplicities and its common mass is the
+sum of the two common masses. Moreover,
+$\Phi(\{x,y\})=\|T(x-y)\|_1$ on a common mass hyperplane.
+\end{corollary}
+\begin{proof}
+All statements follow from~\eqref{eq:width}. For additivity use
+$h_{K+L}=h_K+h_L$. For the two-point formula, a width is the absolute difference
+of the two corresponding prefixes. Injectivity of $T$ on $H_0$ gives separation.
+\end{proof}
+
+If $L\subset H_m$ is compact and convex, $K$ is nonempty and compact,
+$K\subset\relint L$, and $\dim L>0$, then the
+width sum is strictly smaller on $K$. Every linear functional nonconstant on
+$\aff L$ takes its extrema on the relative boundary, so its extrema on $K$ are
+strictly interior to its range on $L$. At least one prefix functional is
+nonconstant because the prefixes separate points of $H_m$. Positive dimension
+and nonempty sets exclude the singleton and empty-set degeneracies.
+
+\begin{proposition}[Exact witnesses and increments]\label{prop:witness}
+For every finite $X$ there is a submultiset of at most $2(n-1)$ points with the
+same value. This bound is worst-case sharp. With
+$L_k=\min_X F_x(k)$ and $U_k=\max_X F_x(k)$, a further histogram $z\in H_m$ has
+\[
+ \Phi(X\cup\{z\})-\Phi(X)
+ =\sum_{k=0}^{n-2}\operatorname{dist}\bigl(F_z(k),[L_k,U_k]\bigr).
+\]
+\end{proposition}
+\begin{proof}
+Choose one point attaining each signed prefix extremum. For sharpness, place a
+small translated crosspolytope with vertices $\pm e_k$ in the interior of the
+prefix image of the histogram simplex. Each signed coordinate extremum is
+unique, so all $2(n-1)$ vertices are needed. The increment formula follows by
+expanding the interval length after adjoining one value.
+\end{proof}
+
+In particular, zero incremental contribution need not imply membership in
+$\conv X$. The functional retains the coordinate bounding box of $T(X)$ and
+forgets correlations among its coordinates. This limits deductions about shape,
+lattice points or arithmetic solvability that rely on the value alone.
+For compact convex sets the same width sum is defined directly by supports;
+choosing signed support points gives the same finite witness bound. If $C$ lies
+in the histogram simplex, the polytope
+\[
+ \{x\in H_m\cap\R_+^n:L_k\le F_x(k)\le U_k\ \text{for every }k\}
+\]
+contains $C$ and has exactly its prefix extrema. This gives the enclosing-polytope
+value directly, without a limiting argument.
+
+\section{The complete dual vertex set}
+For $n,d\ge2$, define the full dual polyhedron
+\[
+ D_{n,d}=\{z\in\R^{nd}:\textstyle\sum_j z_j(I_j)\le\max I-\min I\text{ for all }I\}.
+\]
+Its lineality is
+\[
+ L=\{z:z_j(i)=\alpha_j\text{ for all }i,\ \textstyle\sum_j\alpha_j=0\}.
+\]
+Indeed a lineality direction has zero sum on every tuple; varying one index
+makes each column constant. Thus $D_{n,d}/L$ has dimension $nd-d+1$.
+Without this quotient the polyhedron has no vertices.
+
+\begin{theorem}[Full dual census]\label{thm:census}
+Let $P\subset D_{n,d}$ be the face where all diagonal constraints are tight.
+Modulo $L$, it is linearly isomorphic to
+\[
+ R_d^{\,n-1},\qquad R_d=\conv\{e_a-e_b:a\ne b\}.
+\]
+Every vertex of $D_{n,d}/L$ lies in $P/L$. Consequently the full quotient dual
+has exactly $[d(d-1)]^{n-1}$ vertices.
+\end{theorem}
+\begin{proof}
+The simultaneous diagonal equality set is a face: the sum of its nonnegative
+diagonal slacks vanishes exactly when every slack vanishes. On this face there
+is a unique representative with $z_j(0)=0$ for all $j$. Write
+$q_k(j)=z_j(k+1)-z_j(k)$. Diagonal equalities give $\sum_jq_k(j)=0$.
+Tuples using only $k,k+1$ give
+\[
+ \sum_{j\in S}q_k(j)\le1\quad(\varnothing\ne S\subsetneq\{1,\ldots,d\}).
+\]
+Equivalently, $\sum_j(q_k(j))_+\le1$. This describes $R_d$: decompose the
+positive and negative parts into a nonnegative flow of total mass at most one,
+and use $0\in R_d$. Conversely, arbitrary $q_k\in R_d$ give a feasible dual
+by the cut argument in Proposition~\ref{prop:dual}. The cuts are independent,
+so $P/L\cong R_d^{n-1}$. Every root is exposed by a functional with unique
+largest coordinate at its positive endpoint and unique smallest coordinate at
+its negative endpoint. This proves the vertex count for the face.
+
+To prove completeness, take a vertex $v$ of the full quotient. Its active tuple
+normals span $L^\perp$. Let $x$ be their sum. Each normal is nonnegative and
+has column sums one. Every coordinate of $x$ is positive: otherwise the active
+normals would all lie in a proper coordinate hyperplane of $L^\perp$, contrary
+to spanning. Thus $x$ is an admissible family of strictly positive histograms.
+The objective $x$ uniquely exposes $v$ modulo $L$, since attaining its upper
+bound requires equality in every active inequality. But
+Proposition~\ref{prop:dual} supplies an optimal point in $P$ for this same
+objective. Uniqueness puts $v$ in $P/L$. Finally a vertex of a face is a vertex
+of the full polyhedron, proving the assertion.
+\end{proof}
+
+\begin{remark}
+The bounded product is not the whole quotient. The recession cone is
+\[
+ \operatorname{rec}D_{n,d}
+ =\{r:\textstyle\sum_j\max_i r_j(i)\le0\}
+ =-\R_+^{nd}+L.
+\]
+For the second equality, choose constants $\alpha_j\ge\max_i r_j(i)$ whose sum
+is zero. The vertex--recession decomposition then gives
+$D_{n,d}=P+\operatorname{rec}D_{n,d}$.
+\end{remark}
+
+\section{Rigidity of normalized additive Monge families}
+\subsection{The all-arity problem}
+Fix the bin order once and for all. For every $d\ge1$, let
+$c_d:\{0,\ldots,n-1\}^d\to\R_+$ be finite and symmetric. A cost is Monge if
+\[
+ c_d(I\wedge J)+c_d(I\vee J)\le c_d(I)+c_d(J),
+\]
+with coordinatewise meet and join. Normalization means $c_1(i)=0$ for every bin.
+Hull invariance of the associated family of transport functionals means that
+$\conv X=\conv Y$ implies $\Phi_c(X)=\Phi_c(Y)$, for any admissible multisets
+in the same mass hyperplane, including different cardinalities. Additivity means
+\[
+ \Phi_{c_{de}}(X+Y)=\Phi_{c_d}(X)+\Phi_{c_e}(Y).
+\]
+The masses of $X$ and $Y$ may differ. No comparison of differently shaped cost
+tensors is made without this functional interpretation.
+
+\begin{lemma}[Common-quantile optimality]\label{lem:monge}
+A finite Monge cost has an optimal common-quantile coupling for every family of
+equal-mass nonnegative histograms.
+\end{lemma}
+\begin{proof}
+Among optimal couplings, maximize the secondary linear objective
+$\sum_I f(I)(\sum_j I_j)^2$. Both extrema exist by compactness. If two
+incomparable tuples $I,J$ have positive mass, replace an equal small amount of
+mass at them by mass at $I\wedge J,I\vee J$. Each marginal is preserved.
+The Monge inequality prevents the primary objective from increasing; optimality
+therefore makes its change zero. Put $a=\sum I_j$, $b=\sum J_j$ and
+$t=\sum\min(I_j,J_j)$. The secondary change per unit mass is
+\[
+ t^2+(a+b-t)^2-a^2-b^2=2(a-t)(b-t)>0,
+\]
+contradiction. Hence the support is a chain. Order its atoms and assign
+consecutive intervals of their masses on $[0,m]$. Every coordinate is
+nondecreasing and has the prescribed marginal, so this is the common-quantile
+coupling, up to null endpoints.
+\end{proof}
+
+\begin{theorem}[Normalized classification]\label{thm:rigidity}
+A symmetric, finite, nonnegative Monge family $(c_d)_{d\ge1}$ with $c_1=0$
+has a hull-invariant, Minkowski-additive transport functional if and only if
+there are weights $w_0,\ldots,w_{n-2}\ge0$, independent of $d$, such that
+\begin{equation}\label{eq:weightedcost}
+ c_d(I)=\sum_{k=0}^{n-2}w_k\1\{\min I\le k<\max I\}.
+\end{equation}
+The weights are uniquely determined by $w_k=c_2(k,k+1)$, and
+\[
+ \Phi_c(X)=\sum_{k=0}^{n-2}w_k\width(\conv X,u_k).
+\]
+\end{theorem}
+\begin{proof}
+For Dirac histograms $e_{I_1},\ldots,e_{I_d}$ the only feasible coupling is the
+unit atom at $I$, so its optimum is $c_d(I)$. The convex hull of these histograms
+depends only on the set of bin labels occurring in $I$. Hull invariance therefore
+implies that repeating labels does not change this cost. In particular every
+constant tuple has cost zero, and every mixed tuple using just $k,k+1$ has cost
+$w_k=c_2(k,k+1)$, independent of arity and multiplicities.
+
+Take arbitrary $X$ of mass $m$ and choose $M>m$. Add the common histogram
+$h=M\1$. Normalization and Minkowski additivity give
+\begin{equation}\label{eq:padding}
+ \Phi_c(X+h)=\Phi_c(X)+\Phi_{c_1}(\{h\})=\Phi_c(X).
+\end{equation}
+By Lemma~\ref{lem:monge}, the translated family has an optimal common-quantile
+coupling. Its cut-$k$ breakpoints are
+\[
+ (k+1)M+F_{x_j}(k).
+\]
+The $n-1$ breakpoint bands lie in the disjoint intervals
+$[(k+1)M,(k+1)M+m]$. Outside the mixed portions of these bands the index tuple
+is constant, hence costs zero. Inside band $k$, the only possible bins are
+$k,k+1$, and the tuple is mixed exactly between its least and greatest
+breakpoint. The cost there is $w_k$. Thus
+\[
+ \Phi_c(X+h)=\sum_k w_k\bigl(\max_jF_{x_j}(k)-\min_jF_{x_j}(k)\bigr).
+\]
+Together with~\eqref{eq:padding} this gives the asserted functional formula.
+Applying it to the Dirac family recovers~\eqref{eq:weightedcost}. Nonnegativity
+of $c_2$ gives $w_k\ge0$.
+
+Conversely, a cut indicator is submodular: under $S=\{j:I_j>k\}$ it becomes
+$g(S)=1$ for nonempty proper $S$ and zero otherwise. Its cardinality increments
+are nonincreasing, so it is submodular; meet and join map to intersection and
+union. Nonnegative weighted sums are consequently Monge. The weighted version
+of Theorem~\ref{thm:width} proves the functional formula and hence hull
+invariance and Minkowski additivity. Symmetry and normalization are immediate.
+\end{proof}
+
+\paragraph{Unit adjacent costs.}
+Within the class of Theorem~\ref{thm:rigidity}, the additional conditions
+$c_2(k,k+1)=1$ for every $k$ uniquely determine $c_d(I)=\max I-\min I$ for
+all $d$. Indeed the theorem identifies these adjacent costs with the weights
+in~\eqref{eq:weightedcost}, so every weight is one. The range family satisfies
+all the assumptions by Theorem~\ref{thm:width}; this gives existence as well
+as uniqueness.
+
+This conclusion does not extend to arbitrary additive geometric functionals.
+For three bins, the Dirac histograms have prefix coordinates $(1,1),(0,1),(0,0)$.
+Mean width normalized to induce Euclidean distance on pairs~\cite[Section 2.1]{bt}
+gives adjacent pair values $1,1$ but endpoint value $\sqrt2$, rather than $2$.
+A transport representation would inherit these Dirac costs, and its Monge
+inequality for $I=(0,2)$, $J=(1,1)$ would require $2\le\sqrt2$. Thus this
+additive alternative cannot have a transport representation satisfying the
+ordered Monge requirement.
+
+\begin{remark}[What the hypotheses do]
+The proof needs hull invariance only to remove repeated Dirac labels, and
+additivity only for common uniform padding. Thus those two weaker invariances,
+together with the other stated assumptions, already force the conclusion.
+The bin order is fixed; the statement is not a classification over arbitrary
+underlying metric spaces. If only probability histograms are used, a separate
+normalization of the sum operation is needed; that different formulation is not
+silently assumed here.
+\end{remark}
+
+\subsection{Controls on the assumptions}
+The following examples show that additivity and the fixed-order Monge condition
+are substantive restrictions.
+
+\begin{proposition}[Hull invariance without additivity]\label{prop:squared}
+The normalized family $c_d(I)=(\max I-\min I)^2$ is symmetric, nonnegative and
+Monge. Its transport functional is hull invariant, but not Minkowski additive.
+Writing $L_k=\min_j F_{x_j}(k)$ and $U_k=\max_j F_{x_j}(k)$, its value is
+\[
+ \Phi_c(X)=\sum_k(U_k-L_k)+2\sum_{k<l}(U_k-L_l)_+.
+\]
+\end{proposition}
+\begin{proof}
+To check Monge, write the index intervals of $I,J$ as $[a,A],[b,B]$, with
+$a\le b$. If $A\le B$, meet and join have widths at most $A-a$ and $B-b$,
+respectively. If $B\le A$, their widths are at most $B-a$ and $A-b$.
+These latter lengths have the same sum as $A-a,B-b$, and their sum of squares
+is smaller by $2(b-a)(A-B)$. This proves the required inequality in both cases.
+
+In a quantile coupling, crossing cut $k$ corresponds to the interval
+$[L_k,U_k]$. Since prefixes increase with $k$, crossing both $k<l$ corresponds
+to an interval of length $(U_k-L_l)_+$. Expand the square of the number of
+crossed cuts and apply Lemma~\ref{lem:monge}. Every term depends only on the
+prefix extrema, proving hull invariance. For $n=3$ and $X=\{e_0,e_2\}$, the
+value is $4$, whereas adding $h=2(1,1,1)$ to every histogram gives value $2$.
+The singleton $\{h\}$ has value zero, so additivity fails.
+\end{proof}
+
+For the Monge restriction, reorder the three bins as $(0,2,1)$ and let the
+cost be their range in that reordered path. This normalized family is hull
+invariant and additive by the reordered prefix formula. It is not Monge in
+the original order: for $I=(0,2)$ and $J=(1,1)$ the meet/join costs sum to
+$3$, while the original costs sum to $1$. Thus removing Monge admits even
+other path orders, not just different weights on the fixed path.
+
+\subsection{Why normalization matters; a related conjecture}
+The unqualified endpoint-only converse is false. The family
+$c_d(I)=d^{-1}\sum_j I_j$ is symmetric, nonnegative and modular, hence Monge.
+Its transport value is the average unary marginal moment and is additive under
+multiset Minkowski addition. But $(0,0,1)$ and $(0,1,1)$ have the same endpoints
+and costs $1/3$ and $2/3$. This family is not normalized and is sensitive to
+multiplicities; it does not contradict Theorem~\ref{thm:rigidity}.
+
+More generally let $a$ be nondecreasing and $b$ nonincreasing, and set
+$c_d(I)=a(\max I)+b(\min I)$. With $L_k=\min_jF_{x_j}(k)$ and
+$U_k=\max_jF_{x_j}(k)$, the common quantile simultaneously minimizes the terms
+in the following expansion:
+\[
+ \Phi_c(X)=m[a(n-1)+b(n-1)]-\sum_k\Delta a_k L_k-\sum_k\Delta b_k U_k.
+\]
+Indeed $\{\max I>k\}$ complements the intersection of prefix events, while
+$\{\min I>k\}$ complements their union; the signs of the increments give the
+correct respective bounds. The formula proves additivity. In particular
+\[
+ \Phi_{\max}(X)=m(n-1)-\sum_k L_k,
+\]
+settling the maximum-cost additivity conjecture in~\cite[Section 5]{kline}.
+If every diagonal cost is zero, $a+b=0$, reducing this family to weighted ranges.
+
+\section{Endpoint graphs and minimum affine dimension}
+Let $G$ be a finite loopless graph without isolated vertices, with a nonempty
+ordered edge list of length $m$. Choose an orientation for each edge and put
+$n=m+1$. A strict endpoint realization consists of positive probability
+histograms $x_j\in\R^n$ such that the $k$th prefix has its unique minimum
+and maximum at the prescribed endpoints of edge $k$. Extra pairs may be
+strictly antipodal in other directions; this is not an induced-graph condition.
+Let $\rho(G)$ be the least affine dimension of such a realization.
+
+\begin{proposition}[Unrestricted realization]\label{prop:realize}
+Every such ordered endpoint pattern has a realization. If $(a_k,b_k)$ are its
+minimum and maximum labels, use
+\[
+ F_{x_j}(k)=\frac{k+1}{n}+\epsilon\delta_{jk},\qquad
+ \delta_{jk}=\begin{cases}-1&j=a_k,\\1&j=b_k,\\0&\text{otherwise},\end{cases}
+ \quad 0<\epsilon<\frac1{2n}.
+\]
+The resulting histograms are positive, every label is an exposed vertex, and
+the normalized optimal dual is unique with increments $e_{a_k}-e_{b_k}$.
+\end{proposition}
+\begin{proof}
+Successive prefix differences are positive, including the two boundary bins.
+The extrema are strict. Every label occurs on an edge and is therefore uniquely
+exposed by a signed prefix direction. Consecutive prefix ranges are disjoint,
+so the quantile coupling gives positive mass to every diagonal tuple. Any
+optimal dual consequently has all diagonals tight. Within the product face in
+Theorem~\ref{thm:census}, the strict extrema uniquely expose the stated roots.
+\end{proof}
+
+\begin{definition}
+Two points $p_a,p_b$ in a finite set are strictly antipodal if a linear functional
+is uniquely minimized at one and uniquely maximized at the other over that set.
+\end{definition}
+\begin{theorem}[Dimension reduction]\label{thm:antipodal}
+The number $\rho(G)$ equals the least $r$ for which points $p_j\in\R^r$ can
+make every requested edge a strictly antipodal pair. In particular edge order,
+orientation and repetitions do not affect $\rho(G)$.
+\end{theorem}
+\begin{proof}
+Restrict the prefix functionals of a histogram realization to its affine hull.
+This gives a strictly antipodal realization in the same dimension. Conversely,
+choose a witnessing functional $\ell_k$ for each edge of a point realization
+and set
+\[
+ F_{x_j}(k)=\frac{k+1}{m+1}+\epsilon\ell_k(p_j).
+\]
+There are finitely many values, so sufficiently small positive $\epsilon$ makes
+all successive differences and boundary bins positive. The requested extrema
+are unchanged. The histogram affine dimension is at most $r$; no label
+collapses or ceases to be exposed because every label is incident to a strict
+edge. Taking minima in both directions proves equality.
+\end{proof}
+
+\begin{theorem}[Stars]\label{thm:stars}
+For the star $K_{1,s}$, $\rho(K_{1,1})=1$, and $\rho(K_{1,s})=2$ for every
+$s\ge2$.
+\end{theorem}
+\begin{proof}
+A segment realizes the single edge. For $s\ge2$, choose distinct rational
+$t_1,\ldots,t_s\in[-1/4,1/4]$, an apex $p_0=(0,1)$, and leaves
+$p_j=(t_j,t_j^2)$. The functional $\ell_j(x,y)=y-2t_jx$ satisfies
+\[
+ \ell_j(p_i)=(t_i-t_j)^2-t_j^2,\qquad \ell_j(p_0)=1.
+\]
+It is uniquely minimized among the leaves at $p_j$, and every leaf value is
+at most $3/16<1$. Hence it is uniquely maximized at the apex. This gives all
+star edges as strict antipodal pairs in the plane, and
+Theorem~\ref{thm:antipodal} gives the histogram realization. In one dimension
+only the two endpoints of a finite set can be uniquely exposed; since all
+$s+1\ge3$ labels must be exposed, dimension one is impossible.
+\end{proof}
+
+The construction is explicit in histogram coordinates: with $n=s+1$, take
+$\epsilon=1/(4n)$ in the proof of Theorem~\ref{thm:antipodal}. The values
+$\ell_j(p_i)$ lie in $[-1/16,1]$, ensuring every required prefix difference is
+positive. Thus the theorem produces rational histograms, not just an abstract
+existence argument.
+
+For contrast, the complete graph requires a pairwise strictly antipodal set.
+If $d$ such points span dimension $r$, the copies $(K+p_j)/2$ inside their
+convex hull $K$ have disjoint interiors: a functional witnessing an antipodal
+pair separates the corresponding two copies. Comparing volumes gives $d\le2^r$.
+The construction of Barvinok, Lee and Novik~\cite[Theorem 4.1]{bln} gives at
+least $3^{\lfloor r/2\rfloor-1}-1$ pairwise strictly antipodal points. Consequently
+\[
+ \lceil\log_2d\rceil\le\rho(K_d)
+ \le2\lceil\log_3(d+1)\rceil+2.
+\]
+These are transferred existing bounds, not new extremal estimates. They separate
+the constant-dimensional star family from complete graphs. The exact star
+example is included to make the dimension parameter concrete; its originality
+is not a premise of the paper.
+
+\section{The branching-star connection to coupling theory}\label{sec:branch}
+Now let the underlying transportation space be a unit three-leaf star, with
+three probability marginals $p_1,p_2,p_3$ supported on its leaves. The cost is
+the length of the minimal subtree spanning a sampled tuple. Define
+\[
+ Q=\sum_v\min_i p_i(v),\quad B=\sum_v\operatorname{med}_i p_i(v),\quad
+ H=\sum_v\max_i p_i(v),\quad L=H-Q.
+\]
+Here $L$ is the sum of the edgewise cut lower bounds. The exact formula is
+\begin{equation}\label{eq:star}
+ \Phi_{\mathrm{star}}=L+(B-1)_+.
+\end{equation}
+This is a known corollary, not a new theorem claimed here. To make the
+translation explicit, let $D$ be the number of distinct leaves in a tuple.
+Pointwise the spanning cost is $D-\1\{\text{all three equal}\}$.
+Makur and Singh~\cite[Proposition 1 and Sections III-C1, III-D]{makur} show
+that the minimum expected $D$ is $H+(B-1)_+$ and construct an attaining
+coupling with diagonal mass $Q$. Every coupling has diagonal mass at most $Q$;
+the same coupling attains both bounds, giving~\eqref{eq:star}. Subtracting
+unrelated extrema would not suffice.
+
+This connects the convex-width interpretation of~\cite{kline} to the later
+coupling result without asserting a historical citation link. The accessible
+Makur--Singh manuscript, arXiv version 2, does not cite Kline or the EMD paper.
+The local star proof uses the same common-diagonal, pair-agreement and residual
+mass mechanism, reorganized as a direct construction. Its independent derivation
+does not establish a different method or a novel formula.
+
+For the cyclic half-mass marginals $(0,1/2,1/2)$, $(1/2,0,1/2)$ and
+$(1/2,1/2,0)$, $L=3/2$, $B=3/2$ and the optimum is $2$. Thus a common
+coupling need not attain all tree-edge bounds. The path proof works because all
+prefix events can be nested simultaneously; the obstruction on a branching
+space identifies exactly where that proof mechanism can fail.
+
+\section{Evidence, scope and remaining review}
+The width and certificate identities were checked on 80 rational cases, with
+144 corresponding raw transport LP instances; these instances were repeated
+after implementing the reusable solver. Complete rational enumeration of the
+raw full-dual inequalities gave respectively $6,4,12$ vertices for
+$(n,d)=(2,3),(3,2),(2,4)$. These checks supplement the all-parameter proofs;
+they do not prove originality or replace mathematical examination.
+
+The draft-specific checks used 24 rational weighted-cost instances and 122
+raw LP solves, testing cross-mass addition, convex-hull augmentation, uniform
+padding and the squared-range control. The largest absolute LP discrepancy was
+$1.17\cdot10^{-15}$. Exact arithmetic checked 11,467 Monge inequalities for
+selected squared-range tensors. The rational star construction was checked for
+$2,3,4,7,11,20,32$ leaves, including positivity, strict endpoints and affine
+rank two; two further small raw LP solves checked its transport values.
+These are bounded checks of examples, distinct from the symbolic proofs.
+
+The normalized classification uses its explicit all-mass, all-arity
+assumptions. A separate AI review checked the padding and Dirac reductions,
+the full-dual completeness argument, zeros, ties and the star-dimension
+construction. The source comparison includes the final conference-formatted
+ICLR paper and its technical appendix. These checks are documented in the
+accompanying audit and reproduction records; they are not expert peer review
+or a certificate of novelty.
+
+AI assisted the development, proof examination, code, source comparison and
+exposition of this work under the author's direction. The author is responsible
+for the claims and for correcting or withdrawing them when necessary.
+
+Further graph-family classifications may be worthwhile, but are not prerequisites
+for the statements proved here. Before claiming a new graph-theoretic result,
+one should compare the selected invariant with the established strict-antipodality
+literature. Arithmetic applications require additional information beyond the
+prefix bounding box and are outside this draft's claims.
+
+\clearpage
+\appendix
+\section{Qualifications to the 2019 paper}
+These observations concern particular statements of~\cite{kline}, not the
+validity of the geometric functional, which is proved directly above. They are
+kept separate from the proposed classification and dual-geometry results.
+
+\subsection{A zero-bin dual-feasibility failure}
+In Algorithm 1 of~\cite[p.136]{kline}, take two identical histograms
+$x_0=x_1=(1,0)$ and the stated smallest-label tie rule. The first iteration
+removes mass one at $(0,0)$, advances the first index to $(1,0)$ and assigns
+$y_0(1)=1$. At zero residual mass the next iteration again advances the first
+index, now out of range, and terminates. The resulting dual is
+\[
+ y_0=(0,1),\qquad y_1=(0,0).
+\]
+At tuple $(1,1)$ its sum is one, violating the zero-cost diagonal constraint.
+Both reported objective values are nevertheless zero because the offending
+coordinates have zero marginal mass. The unchanged archived GEM implementation
+reproduces this example; its unfinished-suffix fill does not repair it. This
+is not a claim about an uninspected current remote revision.
+
+Proposition~\ref{prop:dual} gives a direct replacement valid on the closed
+nonnegative orthant. For this example, choosing the same minimizing and maximizing
+label yields the identically zero dual. The local implementation computes the
+prefix certificate directly and optionally returns the quantile coupling. Any
+historical correction to the printed algorithm should be reviewed explicitly.
+
+\subsection{Relative interior and transverse translation}
+Theorem 3.1(4) of~\cite[p.136]{kline} requires containment under all sufficiently
+small translations in $H_0$. This fails when the containing hull is
+lower-dimensional. Take
+\[
+ Z=\{(1/2,0,1/2),(0,1/2,1/2)\},\quad X=\{(1/4,1/4,1/2)\}.
+\]
+Then $X\subset\relint\conv Z$, but every $Y\subset\conv Z$ has third coordinate
+$1/2$. A small translation $(t,0,-t)$, $t>0$, preserves admissibility but makes
+$\conv(Y+h)$ disjoint from $X$. The containment part needs translation restricted
+to the parallel space of $\aff Z$, or an interior assumption in the full
+mass hyperplane. The direct width proof of strict monotonicity does not use
+this containment argument.
+
+\clearpage
+\begin{thebibliography}{9}
+\bibitem{kline} J. Kline, Properties of the $d$-dimensional earth mover's problem,
+\emph{Discrete Applied Mathematics} 265 (2019), 128--141.
+\href{https://doi.org/10.1016/j.dam.2019.02.042}{doi:10.1016/j.dam.2019.02.042}.
+\bibitem{qst} M. Queyranne, F. Spieksma and F. Tardella, A general class of greedily
+solvable linear programs, \emph{Mathematics of Operations Research} 23(4) (1998),
+892--908. \href{https://doi.org/10.1287/moor.23.4.892}{doi:10.1287/moor.23.4.892}.
+\bibitem{makur} A. Makur and J. Singh, Doeblin coefficients and related measures,
+\emph{IEEE Transactions on Information Theory} 70(7) (2024).
+\href{https://doi.org/10.1109/TIT.2024.3367856}{doi:10.1109/TIT.2024.3367856}.
+Checked manuscript: \href{https://arxiv.org/abs/2309.08475v2}{arXiv:2309.08475v2}.
+\bibitem{bln} A. Barvinok, S. J. Lee and I. Novik, Explicit constructions of
+centrally symmetric $k$-neighborly polytopes and large strictly antipodal sets,
+2012 preprint, \href{https://arxiv.org/abs/1203.6867}{arXiv:1203.6867}.
+\bibitem{bt} D. Bryant and P. Tupper, Linear and sublinear diversities,
+\href{https://arxiv.org/abs/2412.07092v3}{arXiv:2412.07092v3}, revised March 3, 2026.
+\bibitem{mehta} R. Mehta, J. Kline, V. S. Lokhande, G. Fung and V. Singh,
+Efficient discrete multi marginal optimal transport regularization,
+\emph{International Conference on Learning Representations} (2023).
+\href{https://openreview.net/forum?id=R98ZfMt-jE}{OpenReview: R98ZfMt-jE}.
+\end{thebibliography}
+\end{document}

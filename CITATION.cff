@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "Please cite the paper and specify version 0.1.0."
+title: "Prefix-width rigidity and dual geometry of multi-marginal earth moving"
+type: software
+authors:
+  - family-names: Kline
+    given-names: Jeffery
+version: 0.1.0
+repository-code: "https://github.com/jeff-kline/range-emd-converse"
+license: GPL-3.0-only
+keywords:
+  - multi-marginal optimal transport
+  - Monge costs
+  - Minkowski additivity
+  - dual polyhedra
+abstract: >-
+  Paper and verification code for a fixed-order, all-mass, all-arity
+  classification of normalized hull-invariant Minkowski-additive Monge cost
+  families as nonnegative weighted ranges, and a full quotient-dual vertex
+  census for range-cost transport.
+preferred-citation:
+  type: report
+  title: "Prefix-width rigidity and dual geometry of multi-marginal earth moving"
+  authors:
+    - family-names: Kline
+      given-names: Jeffery
+  year: 2026
+  version: 0.1.0
+  url: "https://github.com/jeff-kline/range-emd-converse"
