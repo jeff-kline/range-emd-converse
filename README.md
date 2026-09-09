@@ -59,9 +59,9 @@ and the distinction between exact checks and floating-point LP solves.
 
 ## Version, license, and stewardship
 
-This is the version 0.1.0 preprint and reproducibility bundle. The intended
-public repository is [range-emd-converse](https://github.com/jeff-kline/range-emd-converse).
-Permanent archiving and a DOI are pending: the author reports that Zenodo
+This is the version 0.1.0 preprint and reproducibility bundle. The public repository is [range-emd-converse](https://github.com/jeff-kline/range-emd-converse).
+[GitHub release v0.1.0](https://github.com/jeff-kline/range-emd-converse/releases/tag/v0.1.0)
+was published September 9, 2026. Permanent archiving and a DOI are pending: the author reports that Zenodo
 returns HTTP 504. The archive will use a manual upload of the exact tagged
 bundle when the service is available. No DOI has been reserved or minted.
 See [ADMISSION.md](ADMISSION.md) for the current state.
