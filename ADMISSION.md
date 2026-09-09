@@ -3,8 +3,11 @@
 Current verdict: **NOT YET ADMITTED**.
 Current state: **TAGGED**, version `0.1.0`, published September 9, 2026.
 Frozen commit: `3ce13e87c05d0028b8ecbc8607d8c3f9f834bb77`.
-Zenodo archival publication and DOI verification are blocked by the
-author-reported HTTP 504 outage. No archive or DOI exists for this release.
+Zenodo's GitHub integration is enabled. The unchanged v0.1.0 release was
+republished to deliver the missing event. Zenodo returned HTTP 409 with
+"The release has already been received." This confirms receipt, not successful
+archival publication. Public record lookup still returned HTTP 504; no DOI or
+provider byte verification is established.
 
 Standard: [A Public Standard for This Work, draft 0.4](https://jeff-kline.github.io/posts/research-program/index.html).
 
@@ -30,12 +33,22 @@ bytes. Email remains prohibited.
 
 ## Archive route
 
-Use manual Zenodo upload of the exact `git archive` ZIP of the immutable
-version tag. Do not also activate a GitHub-triggered deposit for this version.
-Generate the tagged ZIP twice and compare bytes. When Zenodo is restored,
-upload that unchanged artifact, then verify title, author, license, version,
-record access, version DOI, and downloaded byte identity. Only then update
-living metadata to ARCHIVED or ADMITTED. Do not move the public tag.
+The author enabled GitHub integration and authorized proceeding on September
+9, 2026, superseding the manual-upload plan in the immutable candidate.
+Do not create a separate manual deposit. The public tag and its commit remain
+unchanged. Republishing the existing GitHub release sent the publication event;
+its assets were preserved.
+
+The canonical GitHub API ZIP for v0.1.0 was downloaded twice before the trigger.
+The downloads match exactly and its internal manifest passes:
+338419 bytes, SHA-256
+`9ef2f5319f53d2893659531272040809767fef8ec903f3bd66b5234a4120bcd4`.
+This is now the provider byte-identity target. The attached manual ZIP below
+remains a valid secondary artifact but is not the expected integration ZIP.
+
+Next verify the public Zenodo record, actual version DOI, metadata, and
+provider ZIP against that pinned GitHub archive. Receipt or a successful
+webhook alone does not establish ARCHIVED or ADMITTED status.
 
 ## Published artifact receipt
 

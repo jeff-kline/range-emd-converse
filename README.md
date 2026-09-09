@@ -62,8 +62,9 @@ and the distinction between exact checks and floating-point LP solves.
 This is the version 0.1.0 preprint and reproducibility bundle. The public repository is [range-emd-converse](https://github.com/jeff-kline/range-emd-converse).
 [GitHub release v0.1.0](https://github.com/jeff-kline/range-emd-converse/releases/tag/v0.1.0)
 was published September 9, 2026. Permanent archiving and a DOI are pending: the author reports that Zenodo
-returns HTTP 504. The archive will use a manual upload of the exact tagged
-bundle when the service is available. No DOI has been reserved or minted.
+returns HTTP 504. The author has enabled GitHub integration, and Zenodo confirms receipt of
+the release. Public record and downloaded-archive verification remain pending;
+no DOI is yet verified. Do not create a duplicate manual deposit.
 See [ADMISSION.md](ADMISSION.md) for the current state.
 
 Copyright (C) 2026 Jeffery Kline. The original paper, TeX, prose, code, and
